@@ -15,4 +15,10 @@ public class TestController {
     public String test2() {
         return "hello catspot!!!!!!";
     }
+
+    @GetMapping("/test3")
+    public String test3() {
+        // 예외 발생
+        throw new RuntimeException("테스트 예외 발생");
+    }
 }
