@@ -9,11 +9,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler{
 
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorResponse> CustomExceptionHandler(CustomException ex){
+        ErrorCode errorCode = ex.getErrorCode();
+        ErrorResponse errorResponse = new ErrorResponse(
+                errorCode.getHttpStatus().value(),
+                errorCode.getMessage()
+        );
+        return new ResponseEntity<>(errorResponse, errorCode.getHttpStatus());
+    }
+
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> AllExceptionHandler(Exception ex){
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "서버에서 오류가 발생했습니다.",
                 ex.getMessage()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
