@@ -9,15 +9,6 @@ import java.io.IOException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler{
-    // IOException 처리
-    @ExceptionHandler(IOException.class)
-    public ResponseEntity<ErrorResponse> IOExceptionHandler(IOException ex){
-        ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                ex.getMessage()
-        );
-        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 
     // 커스텀 예외 처리
     @ExceptionHandler(CustomException.class)
